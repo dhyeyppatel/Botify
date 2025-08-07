@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: '*' }));
-app.use(express.static(path.join(__dirname, '..', 'Fronted')));
+app.use(express.static(path.join(__dirname, '..', 'Frontend')));
 
 // ---------- in-memory stores ----------
 let bots = {};          // { botId: {token, name, instance:Telegraf|null, status:'STOP'|'RUN'} }
