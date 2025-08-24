@@ -1,15 +1,20 @@
-{
-  "name": "botalto",
+﻿{
+  "name": "runmybot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Telegram bot hosting platform - RunMyBot",
+  "main": "Backend/server.js",
+  "type": "commonjs",
   "scripts": {
+    "start": "node Backend/server.js",
+    "dev": "nodemon Backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["telegram", "bot", "express", "render"],
+  "author": "Dhyey Patel",
   "license": "ISC",
-  "type": "commonjs",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "axios": "^1.11.0",
     "body-parser": "^2.2.0",
@@ -19,5 +24,8 @@
     "mongodb": "^6.18.0",
     "path-to-regexp": "^8.2.0",
     "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

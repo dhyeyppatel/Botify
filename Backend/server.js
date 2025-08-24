@@ -27,7 +27,7 @@ let propertiesCollection; // For storing properties
 async function connectToMongo() {
   try {
     await client.connect();
-    db = client.db("botAltoDB");
+    db = client.db("RunMyBotDB");
     console.log("✅ Connected to MongoDB!");
 
     // Initialize collections
@@ -281,7 +281,7 @@ app.get('/test', (req, res) => res.send('Test OK'));
 // Start the server
 function startServer() {
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`⚡ BotAlto server on :${PORT}`));
+  app.listen(PORT, () => console.log(`⚡ RunMyBot server on :${PORT}`));
 }
 
 // Graceful shutdown
@@ -297,3 +297,4 @@ process.on('SIGINT', async () => {
 
 // Connect to MongoDB and start the server
 connectToMongo();
+
