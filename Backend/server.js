@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '..', 'Frontend')));
 
 // MongoDB connection
-const uri = "mongodb+srv://RunMyBot:RunMyBot2974@runmybot.mgeg4pe.mongodb.net/?retryWrites=true&w=majority&appName=RunMyBot";
+const uri = "process.env.MONGODB_URI";
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
