@@ -18,7 +18,7 @@ RunMyBot is a hosting and managing Telegram bots with a user-friendly dashboard.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/RunMyBot.git
+   git clone https://github.com/dhyeyppatel/RunMyBot.git
    cd RunMyBot
    ```
 
@@ -133,14 +133,13 @@ ctx.reply('Choose an option:', {
 | Version | Date       | Changes                     |
 |---------|------------|-----------------------------|
 | 1.0.0   | 2025-08-02 | Initial release             |
+| 1.2.0   | 2025-08-25 | Database for stable usage |
 
 ## Contributing
 
 We welcome contributions! Please fork the repository and submit pull requests. For major changes, please open an issue first to discuss what you'd like to change.
 
 ## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
 
 ---
 
