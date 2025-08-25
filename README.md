@@ -144,4 +144,4 @@ We welcome contributions! Please fork the repository and submit pull requests. F
 ---
 
 **RunMyBot** - Open Source Telegram Bot Platform Server  
-Developed with ❤️ by Kaiiddo
+Developed with ❤️ by Dhyey
