@@ -1,6 +1,6 @@
 # RunMyBot - Telegram Bot Hosting Platform
 
-![RunMyBot Logo]((https://ar-hosting.pages.dev/1756080489191.png)) *[Placeholder for logo]*
+![RunMyBot Logo](https://ar-hosting.pages.dev/1756080489191.png) *[Placeholder for logo]*
 
 RunMyBot is a hosting and managing Telegram bots with a user-friendly dashboard. It allows you to create, manage, and deploy multiple Telegram bots from a single interface, complete with custom command creation and real-time control.
 
