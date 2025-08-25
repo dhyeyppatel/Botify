@@ -1,8 +1,8 @@
-# BotAlto - Telegram Bot Hosting Platform
+# RunMyBot - Telegram Bot Hosting Platform
 
-![BotAlto Logo](https://via.placeholder.com/150x50?text=BotAlto+Logo) *[Placeholder for logo]*
+![RunMyBot Logo]((https://ar-hosting.pages.dev/1756080489191.png)) *[Placeholder for logo]*
 
-BotAlto is an open-source platform for hosting and managing Telegram bots with a user-friendly dashboard. It allows you to create, manage, and deploy multiple Telegram bots from a single interface, complete with custom command creation and real-time control.
+RunMyBot is a hosting and managing Telegram bots with a user-friendly dashboard. It allows you to create, manage, and deploy multiple Telegram bots from a single interface, complete with custom command creation and real-time control.
 
 ## Features
 
@@ -18,8 +18,8 @@ BotAlto is an open-source platform for hosting and managing Telegram bots with a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/botalto.git
-   cd botalto
+   git clone https://github.com/yourusername/RunMyBot.git
+   cd RunMyBot
    ```
 
 2. Install dependencies:
@@ -100,7 +100,7 @@ ctx.reply('Choose an option:', {
 
 *[Placeholder for dashboard screenshot]*
 
-![Dashboard](https://via.placeholder.com/800x500?text=BotAlto+Dashboard)
+![Dashboard](https://via.placeholder.com/800x500?text=RunMyBot+Dashboard)
 
 *[Placeholder for commands screenshot]*
 
@@ -124,7 +124,7 @@ ctx.reply('Choose an option:', {
 
 ### Planned Features
 - ✅ **Current Version**: v1.0.0 - Basic bot management
-- 🔜 **v1.1.0**: Database persistence for bots and commands
+- ✅ **v1.1.0**: Database persistence for bots and commands
 - 🔜 **v1.2.0**: User authentication system
 - 🔜 **v1.3.0**: Analytics and usage statistics
 - 🔜 **v2.0.0**: Plugin system for extended functionality
@@ -144,5 +144,5 @@ We welcome contributions! Please fork the repository and submit pull requests. F
 
 ---
 
-**BotAlto** - Open Source Telegram Bot Platform Server  
+**RunMyBot** - Open Source Telegram Bot Platform Server  
 Developed with ❤️ by Kaiiddo
