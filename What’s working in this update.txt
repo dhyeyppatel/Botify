@@ -1,0 +1,57 @@
+What’s working in this update
+
+Auth
+
+Register + Login (JWT)
+
+Session persistence (localStorage) + auto-restore on refresh
+
+Logout
+
+Bots
+
+Create bot (token + name) with free plan limit = 3
+
+Start / Stop bot (Telegraf)
+
+Delete bot (removes bot, commands, errors, properties)
+
+Dashboard list with status chips + created time
+
+Commands
+
+Add / Edit / Delete commands per bot
+
+Bot auto-restart to apply command changes
+
+Pretty preview of command code
+
+Errors
+
+Per-bot error log viewer (timestamp, command, message)
+
+Admin panel (visible only if logged in as admin)
+
+User list with search
+
+Change plan (free/premium) and role (user/admin)
+
+View a user’s bots; Start/Stop/Delete them
+
+View a user’s recent errors
+
+Quick “commands count” peek
+
+Security & server bits
+
+MongoDB with proper indexes
+
+JWT auth middleware
+
+Owner-or-admin checks on all bot/command/error routes
+
+bcrypt password hashing
+
+helmet + rate limiting
+
+Static frontend served from /Frontend
