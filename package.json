@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "runmybot",
   "version": "1.0.0",
   "description": "Telegram bot hosting platform - RunMyBot",
@@ -9,7 +9,12 @@
     "dev": "nodemon Backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["telegram", "bot", "express", "render"],
+  "keywords": [
+    "telegram",
+    "bot",
+    "express",
+    "render"
+  ],
   "author": "Dhyey Patel",
   "license": "ISC",
   "engines": {
@@ -17,15 +22,28 @@
   },
   "dependencies": {
     "axios": "^1.11.0",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.18.0",
     "path-to-regexp": "^8.2.0",
     "telegraf": "^4.16.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
-  }
+    "nodemon": "^3.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhyeyppatel/RunMyBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dhyeyppatel/RunMyBot/issues"
+  },
+  "homepage": "https://github.com/dhyeyppatel/RunMyBot#readme"
 }
