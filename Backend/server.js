@@ -50,7 +50,6 @@ app.use(
 );
 
 app.use(rateLimit({ windowMs: 60_000, max: 100 }));
-app.use(express.static(path.join(__dirname, '..', 'Frontend')));
 
 // MongoDB connection
 const uri = process.env.MONGODB_URI;
@@ -585,6 +584,10 @@ app.post('/setToken', requireAuth, async (req, res) => {
 });
 
 app.get('/test', (_req, res) => res.send('Test OK'));
+
+app.use(express.static(path.join(__dirname, '..', 'Frontend')));
+
+
 
 // Start the server
 function startServer() {
