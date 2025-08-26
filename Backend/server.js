@@ -8,6 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-only-secret-change-me';
 
 // NEW security deps
 const jwt = require('jsonwebtoken');
@@ -125,7 +126,7 @@ async function connectToMongo() {
 function signToken(user) {
   return jwt.sign(
     { id: user._id.toString(), role: user.role || 'user' },
-    process.env.JWT_SECRET,
+    JWT_SECRET,
     { expiresIn: '7d' }
   );
 }
@@ -135,13 +136,12 @@ async function getUserFromReq(req) {
     const auth = req.headers.authorization || '';
     const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
     if (!token) return null;
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, JWT_SECRET);
     const user = await usersCollection.findOne({ _id: new ObjectId(payload.id) });
     return user || null;
-  } catch (_) {
-    return null;
-  }
+  } catch (_) { return null; }
 }
+
 
 async function requireAuth(req, res, next) {
   const user = await getUserFromReq(req);
@@ -269,10 +269,25 @@ app.post('/auth/register', async (req, res) => {
 app.post('/auth/login', async (req, res) => {
   try {
     const { email, password } = req.body || {};
+    if (!email || !password) return res.status(400).json({ ok: false, error: 'Email and password required' });
+
     const user = await usersCollection.findOne({ email });
     if (!user) return res.status(401).json({ ok: false, error: 'Invalid credentials' });
-    const ok = await bcrypt.compare(password, user.passwordHash);
+
+    // Support both schemas: passwordHash (new) or password (old, but hashed)
+    const storedHash = user.passwordHash || user.password;
+    if (!storedHash) return res.status(500).json({ ok: false, error: 'User has no password set' });
+
+    const ok = await bcrypt.compare(password, storedHash);
     if (!ok) return res.status(401).json({ ok: false, error: 'Invalid credentials' });
+
+    // Optional: migrate old schema to passwordHash
+    if (!user.passwordHash && user.password) {
+      await usersCollection.updateOne(
+        { _id: user._id },
+        { $set: { passwordHash: user.password }, $unset: { password: "" } }
+      );
+    }
 
     const token = signToken(user);
     res.json({
@@ -281,9 +296,10 @@ app.post('/auth/login', async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email, role: user.role, plan: user.plan }
     });
   } catch (e) {
-    res.status(500).json({ ok: false, error: e.message });
+    res.status(500).json({ ok: false, error: e.message || 'Server error' });
   }
 });
+
 
 // Current user
 app.get('/auth/me', requireAuth, (req, res) => {
@@ -585,14 +601,22 @@ app.post('/setToken', requireAuth, async (req, res) => {
 
 app.get('/test', (_req, res) => res.send('Test OK'));
 
-app.use(express.static(path.join(__dirname, '..', 'Frontend')));
+// --- Serve Frontend (same-origin) ---
+const web = path.join(__dirname, '..', 'Frontend');
+app.use(express.static(web));
+
+// Send index.html for any non-API GET
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(web, 'index.html'));
+});
+
 
 
 
 // Start the server
 function startServer() {
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`⚡ RunMyBot server on :${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`⚡ RunMyBot server on :${PORT}`));
 }
 
 // Graceful shutdown
