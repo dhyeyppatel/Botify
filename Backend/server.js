@@ -605,10 +605,26 @@ app.get('/test', (_req, res) => res.send('Test OK'));
 const web = path.join(__dirname, '..', 'Frontend');
 app.use(express.static(web));
 
-// Send index.html for any non-API GET
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(web, 'index.html'));
+// SPA fallback WITHOUT wildcard (avoids path-to-regexp crash)
+app.use((req, res, next) => {
+  if (
+    req.method === 'GET' &&
+    !req.path.startsWith('/auth') &&
+    !req.path.startsWith('/admin') &&
+    !req.path.startsWith('/createBot') &&
+    !req.path.startsWith('/deleteBot') &&
+    !req.path.startsWith('/startBot') &&
+    !req.path.startsWith('/stopBot') &&
+    !req.path.startsWith('/get') &&    // /getBots, /getCommands, /getErrors
+    !req.path.startsWith('/setToken') &&
+    !req.path.startsWith('/test') &&
+    !req.path.startsWith('/health')
+  ) {
+    return res.sendFile(path.join(web, 'index.html'));
+  }
+  next();
 });
+
 
 
 
