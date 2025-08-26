@@ -1,20 +1,22 @@
-# Node / builds
+﻿# Node / server
 node_modules/
-Frontend/node_modules/
-Backend/node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+logs/
+coverage/
 dist/
 build/
 
-# Env & secrets
+# Env / secrets
 .env
 .env.*.local
-*.env
 Backend/config/*.local.json
 
-# Logs & OS/editor junk
-npm-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Frontend caches
+Frontend/**/.cache/
+
+# OS / IDE
 .DS_Store
 Thumbs.db
 .vscode/

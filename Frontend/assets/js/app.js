@@ -5,7 +5,15 @@ function refreshIcons() {
 document.addEventListener('DOMContentLoaded', () => {
   refreshIcons();
   document.getElementById('year').innerText = new Date().getFullYear();
+
+  // keep header version = topbar version (if present)
+  try {
+    const brandVer = document.getElementById('brandVersion');
+    const topbarVer = document.querySelector('.app-topbar .badge');
+    if (brandVer && topbarVer) brandVer.textContent = (topbarVer.textContent || '').trim();
+  } catch (_) {}
 });
+
 
 // ===== Auth state
 let authToken = localStorage.getItem('rmb_token') || null;
@@ -687,6 +695,47 @@ async function adminViewCommands(botId) {
   const count = Object.keys(res.commands || {}).length;
   showToast(`This bot has ${count} command(s).`);
 }
+// ----- Help dropdown (UI only; no impact on auth/toasts) -----
+(function initHelpDropdown(){
+  const toggle = document.getElementById('helpDropdownToggle');
+  const menu   = document.getElementById('helpDropdownMenu');
+  if (!toggle || !menu) return;
+
+  const close = () => { menu.style.display = 'none'; toggle.setAttribute('aria-expanded', 'false'); };
+  const open  = () => { menu.style.display = 'block'; toggle.setAttribute('aria-expanded', 'true'); };
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menu.style.display === 'block';
+    isOpen ? close() : open();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) close();
+  });
+})();
+
+// Single Help dropdown
+(function initHelpDropdown(){
+  const btn  = document.querySelector('.dropdown-toggle[data-dropdown="helpMenu"]');
+  const menu = document.getElementById('helpMenu');
+  if (!btn || !menu) return;
+
+  const close = () => { menu.style.display='none'; btn.setAttribute('aria-expanded','false'); };
+  const open  = () => { menu.style.display='block'; btn.setAttribute('aria-expanded','true'); };
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menu.style.display === 'block';
+    document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display='none');
+    document.querySelectorAll('.dropdown-toggle[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded','false'));
+    isOpen ? close() : open();
+  });
+
+  document.addEventListener('click', close);
+})();
+
+
 
 // ===== Boot
 restoreSession();

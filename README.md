@@ -5,6 +5,10 @@
 RunMyBot is a hosting and managing Telegram bots with a user-friendly dashboard. It allows you to create, manage, and deploy multiple Telegram bots from a single interface, complete with custom command creation and real-time control.
 
 ## Features
+## v1.2.0
+- Configurable FREE_BOT_LIMIT via .env
+- Admin panel: button handling robustness
+- UI: version bump
 
 - 🚀 **Multi-Bot Management**: Host and control multiple Telegram bots simultaneously
 - 💻 **Web Dashboard**: Intuitive interface for managing all aspects of your bots

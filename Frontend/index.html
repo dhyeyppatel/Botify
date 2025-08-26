@@ -21,6 +21,66 @@
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+<section id="features">
+  <a href="https://common-thread.gitbook.io/common-thread-docs/help-center" target="_blank" rel="noopener noreferrer">
+  </a>
+</section>
+<section id="samples"></section>
+<section id="about"></section>
+<section id="bot-token"></section>
+<section id="how-to-use"></section>
+
+<!-- ===== Acme-like Header (brand + nav only) ===== -->
+<header class="site-header">
+  <div class="site-header__inner container">
+    <!-- Brand -->
+<a class="brand" href="#">
+  <!-- Square robot icon with retina source -->
+  <img
+  src="assets/img/Logo2.jpg"
+  alt="RunMyBot"
+  class="brand-img brand-img--square"
+  width="40" height="40"
+/>
+
+  <span class="brand-name">RunMyBot</span>
+  <span id="brandVersion" class="brand-badge">v1.1.0</span>
+</a>
+
+
+    <!-- Center Nav -->
+    <nav class="main-nav" aria-label="Main navigation">
+  <ul class="nav-list">
+    <!-- One clean Help dropdown with two sections -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" data-dropdown="helpMenu" type="button" aria-expanded="false">
+  Help
+</button>
+
+
+      <div id="helpMenu" class="dropdown-menu dropdown-wide" role="menu">
+        <div class="menu-section">
+          <div class="menu-label">Explore</div>
+          <a href="#features">Features</a>
+          <a href="#samples">Sample Codes</a>
+          <a href="#about">About</a>
+        </div>
+
+        <div class="menu-sep"></div>
+
+        <div class="menu-section">
+          <div class="menu-label">Getting started</div>
+          <a href="#bot-token">Bot Token</a>
+          <a href="#how-to-use">How to use</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>
+  </div>
+</header>
+
+
   <!-- ===================== AUTH VIEW ===================== -->
   <section id="authView" class="auth-screen">
     <div class="auth-container" id="authContainer">
@@ -252,10 +312,6 @@
 
   </main>
 
-  <footer>
-    <div>© <span id="year"></span> RunMyBot – Open Source Telegram Bot Platform Server. Developed with ❤️ by Dhyey</div>
-  </footer>
-
   <!-- Local vendor JS + app -->
   <!-- Set this to your backend origin (port/domain) -->
 <script>window.APP_API_BASE = 'http://localhost:3000';</script>
@@ -265,4 +321,7 @@
   <script src="assets/vendor/lucide.min.js" defer></script>
   <script src="assets/js/app.js" defer></script>
 </body>
+    <footer>
+    <div>© <span id="year"></span> RunMyBot –Telegram Bot Hosting Platform. Developed by Dhyey</div>
+  </footer>
 </html>
