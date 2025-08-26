@@ -1,10 +1,21 @@
+# Node / builds
 node_modules/
-.env
-Backend/config/*.local.json
-
-node_modules/
+Frontend/node_modules/
+Backend/node_modules/
 dist/
 build/
+
+# Env & secrets
 .env
 .env.*.local
+*.env
 Backend/config/*.local.json
+
+# Logs & OS/editor junk
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
