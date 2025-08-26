@@ -40,7 +40,12 @@ function showToast(message, isError=false) {
   toast.show?.();
 }
 
-const API_BASE = window.APP_API_BASE || '';
+// Use localhost base only in local dev; otherwise same-origin (empty)
+// Always call same-origin (works locally when you open via the Node server,
+// and works in production without CSP issues)
+const API_BASE = '';
+
+
 
 // ===== API helpers
 function authHeaders() { return authToken ? { Authorization: 'Bearer ' + authToken } : {}; }
