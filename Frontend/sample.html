@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Command Examples</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2, h3 {
+            color: #495057;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 8px;
+        }
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        code {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📖 Command Examples</h2>
+
+        <hr>
+
+        <h3>1. Basic Greeting</h3>
+        <pre><code>ctx.reply('Hello 👋, welcome to BotAlto!');</code></pre>
+
+        <hr>
+
+        <h3>2. User Info</h3>
+        <pre><code>ctx.replyWithMarkdown(
+  `*User Info*:\n- ID: ${ctx.from.id}\n- Name: ${ctx.from.first_name}\n- Username: @${ctx.from.username || 'none'}`
+);</code></pre>
+
+        <hr>
+
+        <h3>3. Send Image</h3>
+        <pre><code>ctx.replyWithPhoto(
+  { url: 'https://picsum.photos/600/400' },
+  { caption: '🖼️ Random image via BotAlto' }
+);</code></pre>
+
+        <hr>
+
+        <h3>4. Inline Keyboard Menu</h3>
+        <pre><code>ctx.reply('Choose an option:', {
+  reply_markup: {
+    inline_keyboard: [
+      [{ text: '🔔 Notify me', callback_data: 'notify' }],
+      [{ text: '❓ Help', callback_data: 'help' }]
+    ]
+  }
+});</code></pre>
+
+        <hr>
+
+        <h3>5. Dice Roll</h3>
+        <pre><code>ctx.replyWithDice();</code></pre>
+
+        <hr>
+
+        <h3>6. Weather (mock)</h3>
+        <pre><code>const city = ctx.message.text.split(' ')[1] || 'Gujarat';
+ctx.reply(`🌤️ ${city}: Sunny, 28°C`);</code></pre>
+
+        <hr>
+
+        <h3>7. URL Shortener</h3>
+        <pre><code>const url = ctx.message.text.split(' ')[1];
+if (!url) return ctx.reply('Usage: /shorten &lt;url&gt;');
+ctx.reply(`Short link: https://tinyurl.com/xyz`);</code></pre>
+
+        <hr>
+
+        <h3>8. CRON reminder (in-chat)</h3>
+        <pre><code>setTimeout(() => ctx.reply('⏰ Reminder fired!'), 5000);</code></pre>
+
+        <hr>
+
+        <h3>9. Random Joke</h3>
+        <pre><code>const jokes = [
+  'Why don’t scientists trust atoms? Because they make up everything!',
+  'I would tell you a UDP joke, but you might not get it.'
+];
+ctx.reply(jokes[Math.floor(Math.random() * jokes.length)]);</code></pre>
+
+        <hr>
+
+        <h3>10. Markdown / HTML Mix</h3>
+        <pre><code>ctx.replyWithHTML(
+  '&lt;b&gt;Bold&lt;/b&gt; &amp; &lt;i&gt;Italic&lt;/i&gt;\n&lt;a href="https://bot.alto"&gt;Visit BotAlto&lt;/a&gt;'
+);</code></pre>
+
+        <hr>
+
+        <h3>11. Download & Forward File</h3>
+        <pre><code>ctx.replyWithDocument({ source: 'https://example.com/report.pdf' });</code></pre>
+
+        <hr>
+
+        <h3>12. Emoji Keyboard</h3>
+        <pre><code>ctx.reply('Pick an emoji:', {
+  reply_markup: {
+    keyboard: [['😀', '😂', '😍'], ['❤️', '👍', '🎉']],
+    resize_keyboard: true
+  }
+});</code></pre>
+
+        <hr>
+
+        <h3>13. Poll</h3>
+        <pre><code>ctx.poll(
+  'Pick your favorite language',
+  ['JavaScript', 'Python', 'Go'],
+  { is_anonymous: false }
+);</code></pre>
+
+        <hr>
+
+        <h3>14. Sticker Pack</h3>
+        <pre><code>ctx.replyWithSticker('CAACAgIAAxkBAAE...');</code></pre>
+
+        <hr>
+
+        <h3>15. Send Audio</h3>
+        <pre><code>ctx.replyWithAudio(
+  { url: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3' },
+  { title: 'Bell Ring' }
+);</code></pre>
+
+    </div>
+
+</body>
+</html>
