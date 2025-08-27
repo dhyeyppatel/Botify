@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Use – RunMyBot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f8fafc;--card:#ffffff;--ink:#111827;--muted:#6b7280;--primary:#1d4ed8;--ring:#e5e7eb}
+    body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:32px;line-height:1.75}
+    .wrap{max-width:900px;margin:0 auto}
+    .card{background:var(--card);border:1px solid var(--ring);border-radius:14px;padding:28px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    h1{margin:0 0 10px}
+    .section{margin-top:18px}
+    .note{background:#f3f4f6;border:1px solid var(--ring);border-radius:10px;padding:10px 14px;color:#374151}
+    code{background:#11182710;border:1px solid var(--ring);padding:2px 6px;border-radius:6px}
+    ol,ul{margin-left:18px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>How to Use RunMyBot</h1>
+      <p class="note">This is a template page—edit text, add screenshots, and link to your Help/FAQ.</p><div class="section">
+    <h2>1) Create your bot</h2>
+    <ol>
+      <li>Get token from <b>@BotFather</b> (see Token Guide).</li>
+      <li>Dashboard → <b>Create New Bot</b> → paste token & name.</li>
+      <li>Click the bot card → <b>Commands</b>.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>2) Add your first command</h2>
+    <ol>
+      <li>In Command name type <code>start</code> (without <code>/</code>).</li>
+      <li>Paste code:
+
+<pre><code>ctx.reply('👋 Welcome to RunMyBot!');</code></pre></li>
+      <li>Save Command.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>3) Start the bot</h2>
+    <ol>
+      <li>Back to the dashboard → click <b>Start</b> on the bot card.</li>
+      <li>Open your bot in Telegram and send <code>/start</code>.</li>
+      <li>Use more snippets from the <b>Telegraf Samples</b> page.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>4) Troubleshooting (quick)</h2>
+    <ul>
+      <li><b>Bot not responding?</b> Ensure it’s <b>Started</b> and you’re messaging the right username.</li>
+      <li><b>Errors shown?</b> Open the <b>Errors</b> button on the bot card and fix the last command edited.</li>
+      <li><b>Changed token?</b> Stop the bot, edit token, then Start again.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>5) Next steps</h2>
+    <ul>
+      <li>Publish command list via <code>/setcommands</code> at BotFather.</li>
+      <li>Add helpful commands: <code>/help</code>, <code>/info</code>, <code>/menu</code>, <code>/poll</code>.</li>
+      <li>Explore Pro features when you need more scale or webhooks.</li>
+    </ul>
+  </div>
+
+</div>
+
+  </div>
+</body>
+</html>
