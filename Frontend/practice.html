@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RunMyBot – Practice Playground</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f8fafb; --card:#ffffff; --ink:#111827; --muted:#6b7280; --ring:#e5e7eb;
+      --primary:#1d4ed8; --success:#16a34a; --danger:#ef4444;
+    }
+    * { box-sizing:border-box }
+    body {
+      font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:var(--bg); color:var(--ink); margin:0; padding:24px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .header h1 { margin:0; font-size:1.4rem }
+    .grid { display:grid; gap:16px; grid-template-columns: 1fr 1fr; }
+    .card { background:#fff; border:1px solid var(--ring); border-radius:12px; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,.04); }
+    textarea {
+      width: 100%; min-height: 270px; resize: vertical; font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      border:1px solid var(--ring); border-radius:10px; padding:12px; outline:none;
+    }
+    .row { display:flex; gap:8px; flex-wrap: wrap; align-items:center; margin:8px 0; }
+    .btn { border:1px solid var(--ring); background:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
+    .btn.primary { background:var(--primary); color:#fff; border-color:var(--primary) }
+    .btn.ghost { background:#f3f4f6 }
+    .btn.small { padding:6px 10px; font-size:.9rem }
+    .muted { color: var(--muted) }
+    input, select { border:1px solid var(--ring); border-radius:8px; padding:8px 10px; outline:none; }
+    .chat { height: 520px; overflow:auto; background:#f9fafb; border:1px solid var(--ring); border-radius:12px; padding:12px; }
+    .msg { background:#fff; border:1px solid var(--ring); border-radius:12px; padding:12px; margin-bottom:10px; }
+    .msg .meta { font-size:.8rem; color:var(--muted); margin-bottom:6px }
+    .msg .text { white-space: pre-wrap }
+    .kbd { display:inline-block; background:#11182710; border:1px solid var(--ring); border-radius:6px; padding:2px 6px; font-family:monospace; }
+    .photo { width:100%; max-height:280px; object-fit:cover; border-radius:10px; border:1px solid var(--ring) }
+    .poll { border:1px dashed var(--ring); border-radius:10px; padding:8px; margin-top:6px; }
+    .options { display:flex; flex-direction:column; gap:6px; margin-top:6px }
+    .option { border:1px solid var(--ring); padding:6px 8px; border-radius:8px; background:#fff }
+    .kbd-row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
+    .kbd-row a, .kbd-row button { border:1px solid var(--ring); padding:6px 10px; border-radius:999px; text-decoration:none; cursor:pointer; background:#fff; color:#111 }
+    .kbd-row a:hover, .kbd-row button:hover { background:#f3f4f6 }
+    .typing { color: var(--muted); font-style:italic }
+    .help { font-size:.92rem; background:#eef2ff; border:1px solid #dbeafe; color:#1e3a8a; border-radius:10px; padding:10px; }
+    .footer-note { margin-top:10px; font-size:.9rem; color:var(--muted) }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } .chat{ height:420px } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>🧪 RunMyBot – Practice Playground</h1>
+      <div class="muted">Paste Telegraf-style command snippets and preview output.</div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: Editor -->
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">Incoming message (simulates user text)</div>
+            <input id="incomingText" placeholder="/start hello" value="/start hello" />
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">User</div>
+            <select id="userPreset">
+              <option value="dhyey">Dhyey</option>
+              <option value="guest">Guest</option>
+            </select>
+          </div>
+        </div>
+
+        <textarea id="codeArea">// Try this:
+// ctx.reply('Hello 👋, welcome to RunMyBot!');
+//
+// More examples:
+// ctx.replyWithMarkdown('*Bold* _italic_ `code`');
+// ctx.replyWithPhoto({ url:'https://picsum.photos/640/360' }, { caption:'Random 📸' });
+// ctx.replyWithDice();
+// ctx.replyWithPoll('Favorite stack?', ['MERN','MEAN','Django','Laravel'], { is_anonymous:false });
+// ctx.replyWithQuiz('2 + 2 = ?', ['3','4','5'], { correct_option_id:1 });
+// ctx.replyWithLocation(21.1702, 72.8311);
+// ctx.replyWithContact('+911234567890', 'Support', 'RunMyBot');
+//
+// Inline keyboard (URL buttons):
+// ctx.reply('Choose:', Markup.inlineKeyboard([
+//   [Markup.button.url('🌐 Website','https://botify-ufk7.onrender.com')],
+//   [Markup.button.url('📚 Docs','https://example.com/docs')]
+// ]));
+</textarea>
+
+        <div class="row" style="margin-top:10px;">
+          <button id="runBtn" class="btn primary">▶ Run</button>
+          <button id="resetBtn" class="btn ghost">↺ Reset</button>
+          <button id="copyBtn" class="btn">📋 Copy Code</button>
+          <button id="pasteBtn" class="btn">📥 Paste Code</button>
+        </div>
+
+        <div class="help" style="margin-top:12px">
+          <b>Available methods</b> (mocked): <span class="kbd">ctx.reply</span>,
+          <span class="kbd">ctx.replyWithMarkdown</span>,
+          <span class="kbd">ctx.replyWithHTML</span>,
+          <span class="kbd">ctx.replyWithPhoto</span>,
+          <span class="kbd">ctx.replyWithDice</span>,
+          <span class="kbd">ctx.replyWithPoll</span>,
+          <span class="kbd">ctx.replyWithQuiz</span>,
+          <span class="kbd">ctx.replyWithLocation</span>,
+          <span class="kbd">ctx.replyWithDocument</span>,
+          <span class="kbd">ctx.replyWithContact</span>,
+          <span class="kbd">ctx.sendChatAction</span>.
+          Keyboards: <span class="kbd">Markup.inlineKeyboard</span>, <span class="kbd">Markup.button.url</span>, <span class="kbd">Markup.button.callback</span> (callbacks not executed in simulator).
+          <div class="footer-note">Clipboard paste requires HTTPS or localhost (browser security).</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Preview -->
+      <div class="card">
+        <div class="row" style="justify-content:space-between; align-items:center;">
+          <div class="muted">Chat Preview</div>
+          <button id="clearBtn" class="btn small">Clear</button>
+        </div>
+        <div id="chat" class="chat"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================== Chat UI ==================
+    const chatEl = document.getElementById('chat');
+    function addMsg(type, payload) {
+      const el = document.createElement('div');
+      el.className = 'msg';
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = type;
+      el.appendChild(meta);
+
+      if (payload.kind === 'text') {
+        const p = document.createElement('div');
+        p.className = 'text';
+        p.textContent = payload.text;
+        if (payload.parse_mode === 'HTML') p.innerHTML = payload.text;
+        el.appendChild(p);
+      }
+
+      if (payload.kind === 'markdown') {
+        const p = document.createElement('div');
+        p.className = 'text';
+        p.textContent = payload.text + '\n\n[Markdown preview is simplified in simulator]';
+        el.appendChild(p);
+      }
+
+      if (payload.kind === 'photo') {
+        const img = document.createElement('img');
+        img.className = 'photo';
+        img.src = payload.url;
+        el.appendChild(img);
+        if (payload.caption) {
+          const c = document.createElement('div');
+          c.className = 'text';
+          c.style.marginTop = '6px';
+          c.textContent = payload.caption;
+          el.appendChild(c);
+        }
+      }
+
+      if (payload.kind === 'dice') {
+        const p = document.createElement('div');
+        p.className = 'text';
+        p.textContent = '🎲 Dice rolled: ' + (Math.floor(Math.random()*6)+1);
+        el.appendChild(p);
+      }
+
+      if (payload.kind === 'poll' || payload.kind === 'quiz') {
+        const box = document.createElement('div'); box.className='poll';
+        const q = document.createElement('div');
+        q.textContent = (payload.kind==='quiz'?'Quiz: ':'Poll: ') + payload.question;
+        box.appendChild(q);
+        const opts = document.createElement('div'); opts.className='options';
+        payload.options.forEach((o, idx) => {
+          const op = document.createElement('div'); op.className='option';
+          op.textContent = (idx+1)+'. '+o+(payload.kind==='quiz' && payload.correct_option_id===idx ? ' ✅':'');
+          opts.appendChild(op);
+        });
+        box.appendChild(opts);
+        if (payload.explanation) {
+          const e = document.createElement('div'); e.className='muted'; e.style.marginTop='6px';
+          e.textContent = 'Explanation: ' + payload.explanation; box.appendChild(e);
+        }
+        el.appendChild(box);
+      }
+
+      if (payload.kind === 'location') {
+        const p = document.createElement('div'); p.className='text';
+        p.textContent = `📍 Location: ${payload.lat}, ${payload.lon}`; el.appendChild(p);
+      }
+
+      if (payload.kind === 'document') {
+        const p = document.createElement('div'); p.className='text';
+        p.textContent = `📄 Document: ${payload.url || '[binary]'} ${payload.caption ? '— '+payload.caption : ''}`;
+        el.appendChild(p);
+      }
+
+      if (payload.kind === 'contact') {
+        const p = document.createElement('div'); p.className='text';
+        p.textContent = `👤 Contact: ${payload.first_name} ${payload.last_name||''} (${payload.phone_number})`; el.appendChild(p);
+      }
+
+      if (payload.kind === 'keyboard') {
+        const kb = document.createElement('div'); kb.className = 'kbd-row';
+        payload.rows.forEach(row => {
+          row.forEach(btn => {
+            if (btn.type === 'url') {
+              const a = document.createElement('a'); a.href=btn.url; a.target='_blank'; a.textContent=btn.text; kb.appendChild(a);
+            } else if (btn.type === 'callback') {
+              const b = document.createElement('button'); b.textContent = btn.text + ' (callback disabled in simulator)'; kb.appendChild(b);
+            }
+          });
+        });
+        el.appendChild(kb);
+      }
+
+      if (payload.kind === 'typing') {
+        const p = document.createElement('div'); p.className='typing';
+        p.textContent = `… sending chat action: ${payload.action}`; el.appendChild(p);
+      }
+
+      chatEl.appendChild(el);
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+    function clearChat(){ chatEl.innerHTML=''; }
+
+    // =============== Mock Markup & ctx ===============
+    const Markup = {
+      inlineKeyboard: (rows) => ({ inline_keyboard: rows }),
+      button: {
+        url: (text, url) => ({ type:'url', text, url }),
+        callback: (text, data) => ({ type:'callback', text, callback_data:data })
+      }
+    };
+
+    function makeCtx({ text='/start', user='Dhyey' } = {}) {
+      const from = user === 'Dhyey'
+        ? { id:1001, is_bot:false, first_name:'Dhyey', username:'dhyey_dev' }
+        : { id:2001, is_bot:false, first_name:'Guest', username:'guest_user' };
+
+      const ctx = {
+        from,
+        chat:{ id:777, type:'private' },
+        message:{ message_id:1, date:Math.floor(Date.now()/1000), text },
+        update:{ message:{ text } },
+
+        reply:(text, extra={})=>{
+          addMsg('ctx.reply', { kind:'text', text:String(text) });
+          if (extra && extra.reply_markup && extra.reply_markup.inline_keyboard) {
+            const rows = extra.reply_markup.inline_keyboard.map(row =>
+              row.map(btn => btn.type ? btn : { type:'url', text:btn.text||'Button', url:'#' })
+            );
+            addMsg('keyboard', { kind:'keyboard', rows });
+          }
+        },
+        replyWithMarkdown:(text)=>addMsg('ctx.replyWithMarkdown',{ kind:'markdown', text:String(text) }),
+        replyWithHTML:(html)=>addMsg('ctx.replyWithHTML',{ kind:'text', text:String(html), parse_mode:'HTML' }),
+        replyWithPhoto:(file, extra={})=>{
+          const url=(file&&(file.url||file.source||file.file_id))||'';
+          addMsg('ctx.replyWithPhoto',{ kind:'photo', url, caption:extra.caption });
+        },
+        replyWithDice:()=>addMsg('ctx.replyWithDice',{ kind:'dice' }),
+        replyWithPoll:(question, options=[], opts={})=>{
+          addMsg('ctx.replyWithPoll',{ kind:'poll', question, options, is_anonymous:!!opts.is_anonymous });
+        },
+        replyWithQuiz:(question, options=[], opts={})=>{
+          addMsg('ctx.replyWithQuiz',{ kind:'quiz', question, options, correct_option_id:opts.correct_option_id, explanation:opts.explanation });
+        },
+        replyWithLocation:(lat, lon)=>addMsg('ctx.replyWithLocation',{ kind:'location', lat, lon }),
+        replyWithDocument:(file, extra={})=>{
+          const url=(file&&(file.url||file.source||file.file_id))||'';
+          addMsg('ctx.replyWithDocument',{ kind:'document', url, caption:extra.caption });
+        },
+        replyWithContact:(phone, first_name, last_name)=>{
+          addMsg('ctx.replyWithContact',{ kind:'contact', phone_number:phone, first_name, last_name });
+        },
+        sendChatAction:(action='typing')=>addMsg('ctx.sendChatAction',{ kind:'typing', action })
+      };
+      return ctx;
+    }
+
+    // ================= Runner & UI wiring =================
+    const codeArea = document.getElementById('codeArea');
+    const runBtn = document.getElementById('runBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const pasteBtn = document.getElementById('pasteBtn');
+    const incomingText = document.getElementById('incomingText');
+    const userPreset = document.getElementById('userPreset');
+
+    function sandboxRun(userCode){ return new Function('ctx','Markup','console', userCode); }
+
+    runBtn.addEventListener('click', () => {
+      const ctx = makeCtx({ text: incomingText.value || '/start', user: userPreset.value === 'dhyey' ? 'Dhyey' : 'Guest' });
+      try { sandboxRun(codeArea.value)(ctx, Markup, console); }
+      catch (e) { addMsg('Error', { kind:'text', text:'❌ ' + (e?.message || String(e)) }); }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      codeArea.value = `// Try this:
+// ctx.reply('Hello 👋, welcome to RunMyBot!');
+//
+// More examples:
+// ctx.replyWithMarkdown('*Bold* _italic_ \`code\`');
+// ctx.replyWithPhoto({ url:'https://picsum.photos/640/360' }, { caption:'Random 📸' });
+// ctx.replyWithDice();
+// ctx.replyWithPoll('Favorite stack?', ['MERN','MEAN','Django','Laravel'], { is_anonymous:false });
+// ctx.replyWithQuiz('2 + 2 = ?', ['3','4','5'], { correct_option_id:1 });
+// ctx.replyWithLocation(21.1702, 72.8311);
+// ctx.replyWithContact('+911234567890', 'Support', 'RunMyBot');
+//
+// Inline keyboard (URL buttons):
+// ctx.reply('Choose:', Markup.inlineKeyboard([
+//   [Markup.button.url('🌐 Website','https://botify-ufk7.onrender.com')],
+//   [Markup.button.url('📚 Docs','https://example.com/docs')]
+// ]));`;
+    });
+
+    clearBtn.addEventListener('click', clearChat);
+
+    // Copy / Paste
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(codeArea.value);
+        addMsg('Clipboard', { kind:'text', text:'✅ Code copied to clipboard.' });
+      } catch (e) {
+        addMsg('Clipboard', { kind:'text', text:'ℹ️ Copy failed. Select text and press Ctrl/Cmd+C.' });
+      }
+    });
+
+    pasteBtn.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText(); // works on HTTPS or localhost
+        if (text) {
+          codeArea.value = text;
+          addMsg('Clipboard', { kind:'text', text:'📥 Pasted code from clipboard.' });
+        } else {
+          addMsg('Clipboard', { kind:'text', text:'ℹ️ Clipboard is empty.' });
+        }
+      } catch (e) {
+        addMsg('Clipboard', { kind:'text', text:'⚠️ Browser blocked paste. Use Ctrl/Cmd+V.' });
+      }
+    });
+
+    // Initial message
+    addMsg('Simulator', { kind:'text', text:'Welcome! Paste code and click “Run”.' });
+  </script>
+</body>
+</html>
