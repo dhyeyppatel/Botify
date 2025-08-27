@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – RunMyBot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --primary:#1d4ed8;
+      --ring:#e5e7eb;
+    }
+    * { box-sizing:border-box; }
+    body {
+      font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      padding:32px;
+      line-height:1.7;
+    }
+    .shell {
+      max-width:900px;
+      margin:0 auto;
+    }
+    .card {
+      background:var(--card);
+      border:1px solid var(--ring);
+      border-radius:14px;
+      padding:28px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
+    }
+    h1 {
+      margin:0 0 8px;
+    }
+    .lead {
+      color:var(--muted);
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+    .stat {
+      background:#f9fafb;
+      border:1px solid var(--ring);
+      border-radius:12px;
+      padding:16px;
+    }
+    .stat b {
+      font-size:1.2rem;
+    }
+    ul { margin:10px 0 0 18px; }
+    .footer {
+      margin-top:18px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    a {
+      color:var(--primary);
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <h1>About <span style="color:var(--primary)">RunMyBot</span></h1>
+      <p class="lead">
+        RunMyBot is a clean, beginner-friendly <b>Telegram bot hosting</b> platform. 
+        Paste your token, name your bot, and start adding commands—no servers, no DevOps.
+      </p>
+
+      <h2>Why RunMyBot?</h2>
+      <ul>
+        <li><b>Zero setup:</b> works from your browser—create, start/stop, and manage bots easily.</li>
+        <li><b>Command editor:</b> paste code snippets that run safely in a sandbox with <code>ctx</code>.</li>
+        <li><b>Guided docs:</b> sample commands, token guide, and usage templates for faster building.</li>
+        <li><b>Scale later:</b> upgrade for more bots, logs, and advanced features.</li>
+      </ul>
+
+      <div class="grid">
+        <div class="stat"><b>3</b><br/>Bots on Free plan</div>
+        <div class="stat"><b>1-click</b><br/>Start/Stop control</div>
+        <div class="stat"><b>40+ </b><br/>Copy-paste snippets</div>
+      </div>
+
+      <h2>How it works (quick)</h2>
+      <ol>
+        <li>Create a bot in Telegram via <b>@BotFather</b> and copy the token.</li>
+        <li>Click <b>Create New Bot</b> on your dashboard, paste token & bot name.</li>
+        <li>Open <b>Commands</b>, add commands using our snippets, and click <b>Start</b>.</li>
+      </ol>
+
+      <p class="footer">
+        Need help? Check the Help / FAQ or message our support channel.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
