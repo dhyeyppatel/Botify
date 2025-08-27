@@ -695,44 +695,38 @@ async function adminViewCommands(botId) {
   const count = Object.keys(res.commands || {}).length;
   showToast(`This bot has ${count} command(s).`);
 }
-// ----- Help dropdown (UI only; no impact on auth/toasts) -----
-(function initHelpDropdown(){
-  const toggle = document.getElementById('helpDropdownToggle');
-  const menu   = document.getElementById('helpDropdownMenu');
-  if (!toggle || !menu) return;
 
-  const close = () => { menu.style.display = 'none'; toggle.setAttribute('aria-expanded', 'false'); };
-  const open  = () => { menu.style.display = 'block'; toggle.setAttribute('aria-expanded', 'true'); };
 
-  toggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = menu.style.display === 'block';
-    isOpen ? close() : open();
+
+// ----- Generic dropdowns (Explore + Help) via class toggle -----
+(function initDropdowns(){
+  const toggles = document.querySelectorAll('.dropdown-toggle[data-dropdown]');
+
+  function closeAll() {
+    document.querySelectorAll('.dropdown-menu.is-open').forEach(m => m.classList.remove('is-open'));
+    toggles.forEach(t => t.setAttribute('aria-expanded', 'false'));
+  }
+
+  toggles.forEach(btn => {
+    const id = btn.dataset.dropdown;
+    const menu = document.getElementById(id);
+    if (!menu) return;
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = menu.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        menu.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
   });
 
-  document.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && e.target !== toggle) close();
-  });
-})();
-
-// Single Help dropdown
-(function initHelpDropdown(){
-  const btn  = document.querySelector('.dropdown-toggle[data-dropdown="helpMenu"]');
-  const menu = document.getElementById('helpMenu');
-  if (!btn || !menu) return;
-
-  const close = () => { menu.style.display='none'; btn.setAttribute('aria-expanded','false'); };
-  const open  = () => { menu.style.display='block'; btn.setAttribute('aria-expanded','true'); };
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = menu.style.display === 'block';
-    document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display='none');
-    document.querySelectorAll('.dropdown-toggle[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded','false'));
-    isOpen ? close() : open();
-  });
-
-  document.addEventListener('click', close);
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+  window.addEventListener('resize', closeAll);
 })();
 
 
