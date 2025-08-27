@@ -1,160 +1,864 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Command Examples</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f8f9fa;
-            color: #343a40;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2, h3 {
-            color: #495057;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 8px;
-        }
-        pre {
-            background-color: #282c34;
-            color: #abb2bf;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        code {
-            font-family: "Fira Code", "Courier New", monospace;
-            font-size: 0.9em;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RunMyBot – Telegraf Command Samples</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9fa; --card: #ffffff; --ink: #343a40; --muted:#6c757d;
+      --primary:#4338ca; --primary-2:#312e81; --ring:#dbeafe; --ring-2:#eef2ff;
+      --code:#282c34; --code-ink:#c6cbd1; --copy:#4a5568; --copy-2:#2d3748; --ok:#2f855a;
+      --border:#e9ecef;
+    }
+    * {box-sizing: border-box}
+    body {font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; background:var(--bg); color:var(--ink); margin:0; padding:24px}
+    .container {max-width: 980px; margin: 0 auto; background:var(--card); padding:32px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .intro {text-align:center; margin-bottom:28px; padding:20px; background:var(--ring-2); border:1px solid var(--ring); border-radius:12px}
+    .intro h1 {margin:0 0 6px; color:var(--primary-2)}
+    .intro p {margin:0; color:var(--primary)}
+    .note {font-size:.95rem; color:var(--muted); margin:10px 0 0}
+
+    h2 {margin:28px 0 10px; color:#495057; font-size:1.15rem; letter-spacing:.2px; display:flex; align-items:center; gap:8px}
+    .badge {display:inline-block; font-size:.72rem; color:#1f2937; background:#f3f4f6; border:1px solid #e5e7eb; padding:2px 8px; border-radius:999px}
+
+    .group {margin-top:28px; border-top:1px solid var(--border); padding-top:18px}
+    .command {margin:18px 0 26px}
+    .command h3 {margin:0 0 10px; font-size:1.05rem; font-weight:700; color:#111827}
+    .meta {font-size:.85rem; color:var(--muted); margin:6px 0 12px}
+
+    .code-wrap {position:relative}
+    pre {background:var(--code); color:var(--code-ink); padding:18px; border-radius:10px; overflow:auto; margin:0}
+    code {font-family:"Fira Code","SFMono-Regular",Consolas,Menlo,monospace; font-size:.92em}
+
+    .copy {position:absolute; top:10px; right:10px; background:var(--copy); color:#fff; border:none; padding:6px 10px; font-size:12px; border-radius:8px; cursor:pointer; opacity:.85; transition:.15s}
+    .copy:hover {opacity:1; background:var(--copy-2)}
+    .copy.copied {background:var(--ok)}
+
+    .tips {background:#f9fafb; border:1px dashed #e5e7eb; padding:12px 14px; border-radius:10px; color:#374151; font-size:.92rem}
+    .grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px}
+    .pill {background:#eef2ff; color:#312e81; padding:4px 8px; border-radius:999px; font-size:.8rem; display:inline-block}
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="intro">
+      <h1>🤖 RunMyBot – Telegraf Command Samples</h1>
+      <p>Copy‑paste friendly snippets. Each block shows the <b>command name</b>, example code, and <b>usage</b> notes.</p>
+      <p class="note">Tip: Replace placeholders like <code>&lt;TOKEN&gt;</code>, IDs, and URLs as needed.</p>
+    </div>
 
-    <div class="container">
-        <h2>📖 Command Examples</h2>
+    <!-- ============================= -->
+    <!-- PLATFORM-SAFE (NO TOKEN NEEDED) -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧱 Platform‑Safe Snippets <span class="badge">for RunMyBot command box</span></h2>
+      <div class="tips">These work inside your <b>Commands</b> editor without access to your backend, tokens, or imports. They use only the provided <code>ctx</code> (and <code>Markup</code> if exposed by the platform). Prefer URL buttons over callback buttons since per‑command code can’t register global handlers.</div>
 
-        <hr>
+      <div class="command">
+        <h3>A1. /start – Welcome</h3>
+        <div class="meta">Simple greet; no token or imports</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /start
+ctx.reply('👋 Welcome to RunMyBot! Use /help to see what I can do.');</code></pre>
+        </div>
+      </div>
 
-        <h3>1. Basic Greeting</h3>
-        <pre><code>ctx.reply('Hello 👋, welcome to RunMyBot!');</code></pre>
+      <div class="command">
+        <h3>A2. /help – Inline list</h3>
+        <div class="meta">Keep short and actionable</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /help
+ctx.replyWithMarkdown('*Try:*
+/info – your profile
+/photo – random image
+/poll – quick poll
+/dice – roll a dice');</code></pre>
+        </div>
+      </div>
 
-        <hr>
+      <div class="command">
+        <h3>A3. /menu – URL Buttons (no callbacks)</h3>
+        <div class="meta">Safe for single‑command execution</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /menu
+ctx.reply('Choose an option:', Markup.inlineKeyboard([
+  [Markup.button.url('🌐 Website','https://runmybot.example')],
+  [Markup.button.url('📚 Docs','https://runmybot.example/docs')],
+  [Markup.button.url('🆘 Support','https://t.me/your_support_channel')]
+]));</code></pre>
+        </div>
+      </div>
 
-        <h3>2. User Info</h3>
-        <pre><code>ctx.replyWithMarkdown(
-  `*User Info*:\n- ID: ${ctx.from.id}\n- Name: ${ctx.from.first_name}\n- Username: @${ctx.from.username || 'none'}`
-);</code></pre>
+      <div class="command">
+        <h3>A4. /info – User info</h3>
+        <div class="meta">Uses ctx.from only</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /info
+const u = ctx.from;
+ctx.replyWithMarkdown(`*User*
+ID: ${u.id}
+Name: ${u.first_name} ${u.last_name||''}
+Username: @${u.username||'none'}`);</code></pre>
+        </div>
+      </div>
 
-        <hr>
+      <div class="command">
+        <h3>A5. /echo – Echo back</h3>
+        <div class="meta">No global state needed</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /echo your text here
+const txt = (ctx.message.text||'').split(' ').slice(1).join(' ');
+ctx.reply(txt || 'Nothing to echo.');</code></pre>
+        </div>
+      </div>
 
-        <h3>3. Send Image</h3>
-        <pre><code>ctx.replyWithPhoto(
-  { url: 'https://picsum.photos/600/400' },
-  { caption: '🖼️ Random image via RunMyBot' }
-);</code></pre>
+      <div class="command">
+        <h3>A6. /photo – Remote image</h3>
+        <div class="meta">Works with any public URL</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /photo
+ctx.replyWithPhoto({ url:'https://picsum.photos/640/360' }, { caption:'Random 📸' });</code></pre>
+        </div>
+      </div>
 
-        <hr>
+      <div class="command">
+        <h3>A7. /poll – Quick poll</h3>
+        <div class="meta">No extra setup</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /poll
+ctx.replyWithPoll('Favorite stack?', ['MERN','MEAN','Django','Laravel'], { is_anonymous:false });</code></pre>
+        </div>
+      </div>
 
-        <h3>4. Inline Keyboard Menu</h3>
-        <pre><code>ctx.reply('Choose an option:', {
-  reply_markup: {
-    inline_keyboard: [
-      [{ text: '🔔 Notify me', callback_data: 'notify' }],
-      [{ text: '❓ Help', callback_data: 'help' }]
-    ]
-  }
+      <div class="command">
+        <h3>A8. /dice – Fun</h3>
+        <div class="meta">Single call</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /dice
+ctx.replyWithDice();</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>A9. /contact – Share contact card</h3>
+        <div class="meta">One‑shot API call</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /contact
+ctx.replyWithContact('+911234567890','Support','RunMyBot');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>A10. /whoami – Debug update</h3>
+        <div class="meta">Great for support</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /whoami
+ctx.reply('```
+' + JSON.stringify(ctx.update, null, 2) + '
+```', { parse_mode:'MarkdownV2' });</code></pre>
+        </div>
+      </div>
+
+      <div class="tips">Why no callbacks/scenes here? In RunMyBot, each command runs in isolation, so global handlers like <code>bot.action()</code> or multi‑step wizards aren’t registered. Use URL buttons, force‑reply prompts, or separate commands instead.</div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 0. MINIMAL BOILERPLATE       -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>⚙️ Quick Boilerplate <span class="badge">start here</span></h2>
+      <div class="command">
+        <h3>0. Minimal Bot Setup</h3>
+        <div class="meta">Use to start a Telegraf bot quickly. Add handlers below.</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// file: index.js
+// npm i telegraf
+const { Telegraf, Markup } = require('telegraf');
+const bot = new Telegraf(process.env.BOT_TOKEN || '<TOKEN>');
+
+bot.start((ctx) => ctx.reply('👋 Welcome! Use /help to see commands.'));
+bot.help((ctx) => ctx.reply('Try /menu, /photo, /dice, /poll, /echo ...'));
+
+// Health ping (optional)
+bot.command('ping', (ctx) => ctx.reply('pong'));
+
+bot.launch();
+
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));</code></pre>
+        </div>
+        <div class="tips">Usage: <span class="pill">node index.js</span> after setting <code>BOT_TOKEN</code>. On Render/Vercel with webhook, use the webhook example below.</div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 1. BASICS                     -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧩 Basics</h2>
+
+      <div class="command">
+        <h3>1. /start – Basic Greeting</h3>
+        <div class="meta">Welcome message for new users</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /start
+ctx.reply('Hello 👋, welcome to RunMyBot!');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>2. /help – Short Help</h3>
+        <div class="meta">Explain available commands</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /help
+ctx.replyWithMarkdown('*Commands:*\n/start – greet\n/info – user info\n/echo – echo back\n/menu – inline menu');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>3. /info – User Info</h3>
+        <div class="meta">Reads <code>ctx.from</code></div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /info
+const u = ctx.from;
+ctx.replyWithMarkdown(`*User Info*\n- ID: ${u.id}\n- Name: ${u.first_name} ${u.last_name||''}\n- Username: @${u.username||'none'}`);</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>4. /echo – Echo Text</h3>
+        <div class="meta">Echoes whatever comes after command</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /echo
+// Usage: /echo your message
+const text = ctx.message.text.split(' ').slice(1).join(' ');
+ctx.reply(text || 'Nothing to echo.');</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 2. MESSAGING & FORMATTING     -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>💬 Messaging & Formatting</h2>
+
+      <div class="command">
+        <h3>5. /md – Markdown</h3>
+        <div class="meta">Bold/italic/code formatting</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /md
+ctx.replyWithMarkdown('*Bold* _Italic_ `Code`\n[Link](https://t.me)');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>6. /html – HTML</h3>
+        <div class="meta">Send HTML formatted text</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /html
+ctx.replyWithHTML('<b>Bold</b> <i>Italic</i> <code>Code</code>');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>7. /typing – Chat Action</h3>
+        <div class="meta">Show typing/upload action</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /typing
+await ctx.sendChatAction('typing');
+setTimeout(() => ctx.reply('Done typing…'), 1200);</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>8. /delete – Delete Message</h3>
+        <div class="meta">Deletes the command message (bot must be admin in groups)</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /delete
+try { await ctx.deleteMessage(); } catch (e) { ctx.reply('I cannot delete this.'); }</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 3. MEDIA                      -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🖼️ Media</h2>
+
+      <div class="command">
+        <h3>9. /photo – Send Photo</h3>
+        <div class="meta">Remote image URL + caption</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /photo
+ctx.replyWithPhoto({ url: 'https://picsum.photos/640/360' }, { caption: 'Random image' });</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>10. /video – Send Video</h3>
+        <div class="meta">Remote video URL</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /video
+ctx.replyWithVideo({ url: 'https://file-examples.com/storage/fe1.mp4' });</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>11. /audio – Send Audio</h3>
+        <div class="meta">Music/voice</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /audio
+ctx.replyWithAudio({ url:'https://file-examples.com/storage/fe1.mp3' }, { title:'Sample' });</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>12. /doc – Send Document</h3>
+        <div class="meta">PDF or any file</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /doc
+ctx.replyWithDocument({ url:'https://file-examples.com/storage/fe1.pdf' });</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>13. /sticker – Send Sticker</h3>
+        <div class="meta">By file_id or URL (webp/webm)</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /sticker
+ctx.replyWithSticker('CAACAgUAAxkBAAIBQ2T…'); // replace with a real file_id</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 4. KEYBOARDS                  -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧰 Keyboards</h2>
+
+      <div class="command">
+        <h3>14. /menu – Inline Keyboard</h3>
+        <div class="meta">Buttons with callbacks</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /menu
+ctx.reply('Choose:', Markup.inlineKeyboard([
+  [Markup.button.callback('🔔 Notify', 'notify'), Markup.button.callback('❓ Help', 'help')],
+  [Markup.button.url('🌐 Website', 'https://runmybot.example')]
+]));
+
+// Handle callbacks
+bot.action('notify', (ctx) => ctx.answerCbQuery('Enabled!'));
+bot.action('help', (ctx) => ctx.editMessageText('Help opened.')); </code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>15. /replykbd – Reply Keyboard</h3>
+        <div class="meta">Persistent keyboard under input</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /replykbd
+ctx.reply('Pick one:', Markup.keyboard([
+  ['⭐ Star', '📜 Help'],
+  ['ℹ️ Info']
+]).resize());</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>16. /hidekbd – Hide Reply Keyboard</h3>
+        <div class="meta">Remove custom keyboard</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /hidekbd
+ctx.reply('Keyboard hidden.', Markup.removeKeyboard());</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>17. /force – Force Reply</h3>
+        <div class="meta">For quick prompt flows</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /force
+ctx.reply('What is your email?', { reply_markup: { force_reply: true } });</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 5. POLLS, DICE, QUIZ         -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🎲 Polls & Fun</h2>
+
+      <div class="command">
+        <h3>18. /dice – Dice</h3>
+        <div class="meta">Random 🎲</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /dice
+ctx.replyWithDice();</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>19. /poll – Simple Poll</h3>
+        <div class="meta">Anonymous off/on</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /poll
+ctx.replyWithPoll('Favorite language?', ['JS','Python','Go'], { is_anonymous:false });</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>20. /quiz – Quiz Poll</h3>
+        <div class="meta">Right answer index + explanation</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /quiz
+ctx.replyWithQuiz('2 + 2 = ?', ['3','4','5'], { correct_option_id:1, explanation:'Basic math' });</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 6. LOCATION & CONTACT         -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>📍 Location & Contacts</h2>
+
+      <div class="command">
+        <h3>21. /loc – Send Location</h3>
+        <div class="meta">Latitude & longitude</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /loc
+ctx.replyWithLocation(21.1702, 72.8311); // Surat, IN</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>22. /venue – Venue</h3>
+        <div class="meta">Location + title & address</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /venue
+ctx.replyWithVenue(21.1702, 72.8311, 'RunMyBot HQ', 'Ring Road, Surat');</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>23. /contact – Contact</h3>
+        <div class="meta">Share a phone contact</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /contact
+ctx.replyWithContact('+911234567890', 'Support', 'RunMyBot');</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 7. FILES & ALBUMS             -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🗂️ Files & Albums</h2>
+
+      <div class="command">
+        <h3>24. /album – Media Group</h3>
+        <div class="meta">Send multiple photos as an album</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /album
+ctx.replyWithMediaGroup([
+  { type:'photo', media:{url:'https://picsum.photos/600/400?1'} },
+  { type:'photo', media:{url:'https://picsum.photos/600/400?2'} },
+]);</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>25. /caption – Edit Caption</h3>
+        <div class="meta">Edit last photo caption (store message_id yourself)</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /caption
+const sent = await ctx.replyWithPhoto({url:'https://picsum.photos/640/360'}, {caption:'Old'});
+await ctx.telegram.editMessageCaption(ctx.chat.id, sent.message_id, undefined, 'New caption');</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 8. ADMIN / GROUP TOOLS        -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🛡️ Admin & Group Tools</h2>
+
+      <div class="command">
+        <h3>26. /admins – List Admins</h3>
+        <div class="meta">Works in groups/supergroups</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /admins
+const admins = await ctx.getChatAdministrators();
+ctx.reply('Admins:\n' + admins.map(a => `• ${a.user.first_name}`).join('\n'));</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>27. /ban – Ban User (reply)</h3>
+        <div class="meta">Reply to a user's message and run /ban (bot must be admin)</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /ban
+if (!ctx.message.reply_to_message) return ctx.reply('Reply to a user to ban');
+const uid = ctx.message.reply_to_message.from.id;
+try { await ctx.banChatMember(uid); ctx.reply('User banned.'); }
+catch(e){ ctx.reply('Failed: ' + e.message); }</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>28. /pin – Pin (reply)</h3>
+        <div class="meta">Pin a message in groups</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /pin
+if (!ctx.message.reply_to_message) return ctx.reply('Reply to pin');
+try { await ctx.pinChatMessage(ctx.message.reply_to_message.message_id); ctx.reply('Pinned.'); }
+catch(e){ ctx.reply('Failed: ' + e.message); }</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 9. INLINE MODE                -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧿 Inline Mode</h2>
+
+      <div class="command">
+        <h3>29. Inline Query – Echo Results</h3>
+        <div class="meta">Enable inline mode in BotFather first</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// In main file (not inside a command)
+bot.on('inline_query', async (ctx) => {
+  const q = ctx.inlineQuery.query || 'empty';
+  await ctx.answerInlineQuery([
+    { type:'article', id:'1', title:'Echo', input_message_content:{ message_text:q } },
+  ], { cache_time: 0 });
 });</code></pre>
+        </div>
+      </div>
+    </div>
 
-        <hr>
+    <!-- ============================= -->
+    <!-- 10. PAYMENTS                  -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>💸 Payments</h2>
 
-        <h3>5. Dice Roll</h3>
-        <pre><code>ctx.replyWithDice();</code></pre>
+      <div class="command">
+        <h3>30. /pay – Send Invoice</h3>
+        <div class="meta">Set provider token in BotFather → Payments</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /pay
+ctx.replyWithInvoice({
+  title: 'Pro Plan', description: 'RunMyBot Pro (1 month)',
+  payload: 'pro-001', provider_token: process.env.PAY_TOKEN || '<PROVIDER_TOKEN>',
+  currency: 'INR', prices: [{ label:'Subscription', amount: 49900 }],
+});
 
-        <hr>
+bot.on('pre_checkout_query', (ctx) => ctx.answerPreCheckoutQuery(true));
+bot.on('successful_payment', (ctx) => ctx.reply('✅ Payment received!')); </code></pre>
+        </div>
+      </div>
+    </div>
 
-        <h3>6. Weather (mock)</h3>
-        <pre><code>const city = ctx.message.text.split(' ')[1] || 'Gujarat';
-ctx.reply(`🌤️ ${city}: Sunny, 28°C`);</code></pre>
+    <!-- ============================= -->
+    <!-- 11. SCENES / WIZARDS          -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧭 Multi‑Step Flow (Scenes/Wizard)</h2>
 
-        <hr>
+      <div class="command">
+        <h3>31. Simple 2‑Step Wizard</h3>
+        <div class="meta">Collect user data across messages</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// npm i telegraf @telegraf/session
+const { Scenes, session } = require('telegraf');
 
-        <h3>7. URL Shortener</h3>
-        <pre><code>const url = ctx.message.text.split(' ')[1];
-if (!url) return ctx.reply('Usage: /shorten &lt;url&gt;');
-ctx.reply(`Short link: https://tinyurl.com/xyz`);</code></pre>
+const askName = new Scenes.BaseScene('askName');
+askName.enter((ctx) => ctx.reply('Your name?'));
+askName.on('text', (ctx) => { ctx.scene.state.name = ctx.message.text; return ctx.scene.enter('askEmail'); });
 
-        <hr>
+const askEmail = new Scenes.BaseScene('askEmail');
+askEmail.enter((ctx) => ctx.reply('Your email?'));
+askEmail.on('text', (ctx) => {
+  ctx.scene.state.email = ctx.message.text;
+  ctx.reply(`Saved: ${ctx.scene.state.name} & ${ctx.scene.state.email}`);
+  return ctx.scene.leave();
+});
 
-        <h3>8. CRON reminder (in-chat)</h3>
-        <pre><code>setTimeout(() => ctx.reply('⏰ Reminder fired!'), 5000);</code></pre>
+const stage = new Scenes.Stage([askName, askEmail]);
+bot.use(session());
+bot.use(stage.middleware());
 
-        <hr>
+// Command: /register
+ctx.scene.enter('askName');</code></pre>
+        </div>
+      </div>
+    </div>
 
-        <h3>9. Random Joke</h3>
-        <pre><code>const jokes = [
+    <!-- ============================= -->
+    <!-- 12. MIDDLEWARE & FILTERS      -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧱 Middleware & Filters</h2>
+
+      <div class="command">
+        <h3>32. Logger Middleware</h3>
+        <div class="meta">Log each update</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Global (top of file)
+bot.use(async (ctx, next) => {
+  console.log('Update', ctx.updateType);
+  return next();
+});</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>33. Hears Keyword</h3>
+        <div class="meta">React to plain text</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Anywhere
+bot.hears(/hello|hi/i, (ctx) => ctx.reply('Hello there!'));</code></pre>
+        </div>
+      </div>
+
+      <div class="command">
+        <h3>34. Only Admin Guard</h3>
+        <div class="meta">Restrict a handler to group admins</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>async function onlyAdmins(ctx, next){
+  const me = await ctx.getChatMember(ctx.from.id);
+  if(['administrator','creator'].includes(me.status)) return next();
+  return ctx.reply('Admins only.');
+}
+
+// Command: /admin
+onlyAdmins(ctx, () => ctx.reply('Secret admin thing…'));</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 13. WEBHOOK & DEPLOY          -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🛰️ Webhook & Deploy</h2>
+
+      <div class="command">
+        <h3>35. Express Webhook</h3>
+        <div class="meta">For Render/Vercel/Cloud</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// file: server.js
+// npm i telegraf express body-parser
+const { Telegraf } = require('telegraf');
+const express = require('express');
+const app = express();
+const bot = new Telegraf(process.env.BOT_TOKEN || '<TOKEN>');
+
+app.use(bot.webhookCallback('/tg'));
+bot.telegram.setWebhook((process.env.BASE_URL || 'https://example.com') + '/tg');
+
+app.get('/', (_, res) => res.send('OK'));
+app.listen(process.env.PORT || 3000, () => console.log('Webhook listening'));</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 14. SAMPLE BOT WORKFLOW       -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧪 Sample Bot Workflow</h2>
+      <div class="tips">
+        Goal: convert a free user to Pro. Flow = <b>/start → /menu → Collect Email → Create Ticket → Offer Pay → Success</b>
+      </div>
+      <div class="command">
+        <h3>36. End‑to‑End Flow (compact)</h3>
+        <div class="meta">Paste into your bot after basic setup</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// 1) Start + Menu
+bot.start((ctx) => ctx.reply('Welcome! Ready to level up?', Markup.inlineKeyboard([
+  [Markup.button.callback('📬 Contact Support','support')],
+  [Markup.button.callback('💎 Go Pro (₹499)','pro')]
+])));
+
+// 2) Support flow – collect email
+bot.action('support', async (ctx) => {
+  await ctx.answerCbQuery();
+  await ctx.reply('Your email?', { reply_markup:{ force_reply:true } });
+});
+
+bot.on('message', async (ctx, next) => {
+  if (ctx.message.reply_to_message && /Your email\?/i.test(ctx.message.reply_to_message.text)) {
+    const email = ctx.message.text.trim();
+    await ctx.reply(`Thanks! Ticket created for ${email}. Our team will reach out.`);
+    // TODO: save to DB / send to webhook
+    return;
+  }
+  return next();
+});
+
+// 3) Payment offer
+bot.action('pro', async (ctx) => {
+  await ctx.answerCbQuery();
+  return ctx.replyWithInvoice({
+    title:'RunMyBot Pro', description:'1 month access', payload:'pro-001',
+    provider_token: process.env.PAY_TOKEN || '<PROVIDER_TOKEN>', currency:'INR',
+    prices:[{label:'Pro Plan', amount:49900}],
+  });
+});
+
+bot.on('pre_checkout_query', (ctx) => ctx.answerPreCheckoutQuery(true));
+
+bot.on('successful_payment', (ctx) => ctx.reply('🎉 You are Pro now! Use /help to explore premium features.'));</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 15. MISC & UTILITIES          -->
+    <!-- ============================= -->
+    <div class="group">
+      <h2>🧰 Misc & Utilities</h2>
+
+      <div class="command">
+        <h3>37. /joke – Random Joke</h3>
+        <div class="meta">In‑memory list</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /joke
+const jokes = [
   'Why don’t scientists trust atoms? Because they make up everything!',
   'I would tell you a UDP joke, but you might not get it.'
 ];
-ctx.reply(jokes[Math.floor(Math.random() * jokes.length)]);</code></pre>
+ctx.reply(jokes[Math.floor(Math.random()*jokes.length)]);</code></pre>
+        </div>
+      </div>
 
-        <hr>
+      <div class="command">
+        <h3>38. /setcmds – Publish Bot Commands</h3>
+        <div class="meta">So users see a command list in the app</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /setcmds
+await ctx.telegram.setMyCommands([
+  { command:'start', description:'Start the bot' },
+  { command:'help', description:'Get help' },
+  { command:'info', description:'Your profile' },
+]);
+ctx.reply('Commands published.');</code></pre>
+        </div>
+      </div>
 
-        <h3>10. Markdown / HTML Mix</h3>
-        <pre><code>ctx.replyWithHTML(
-  '&lt;b&gt;Bold&lt;/b&gt; &amp; &lt;i&gt;Italic&lt;/i&gt;\n&lt;a href="https://bot.alto"&gt;Visit RunMyBot&lt;/a&gt;'
-);</code></pre>
+      <div class="command">
+        <h3>39. /forward – Forward Message</h3>
+        <div class="meta">Forward a replied message to another chat</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /forward
+const targetChatId = '<CHAT_ID>'; // e.g., your admin channel
+if (!ctx.message.reply_to_message) return ctx.reply('Reply to a message to forward');
+await ctx.telegram.forwardMessage(targetChatId, ctx.chat.id, ctx.message.reply_to_message.message_id);
+ctx.reply('Forwarded.');</code></pre>
+        </div>
+      </div>
 
-        <hr>
-
-        <h3>11. Download & Forward File</h3>
-        <pre><code>ctx.replyWithDocument({ source: 'https://example.com/report.pdf' });</code></pre>
-
-        <hr>
-
-        <h3>12. Emoji Keyboard</h3>
-        <pre><code>ctx.reply('Pick an emoji:', {
-  reply_markup: {
-    keyboard: [['😀', '😂', '😍'], ['❤️', '👍', '🎉']],
-    resize_keyboard: true
-  }
-});</code></pre>
-
-        <hr>
-
-        <h3>13. Poll</h3>
-        <pre><code>ctx.poll(
-  'Pick your favorite language',
-  ['JavaScript', 'Python', 'Go'],
-  { is_anonymous: false }
-);</code></pre>
-
-        <hr>
-
-        <h3>14. Sticker Pack</h3>
-        <pre><code>ctx.replyWithSticker('CAACAgIAAxkBAAE...');</code></pre>
-
-        <hr>
-
-        <h3>15. Send Audio</h3>
-        <pre><code>ctx.replyWithAudio(
-  { url: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3' },
-  { title: 'Bell Ring' }
-);</code></pre>
-
+      <div class="command">
+        <h3>40. /whoami – Raw Update Debug</h3>
+        <div class="meta">Inspect the incoming update</div>
+        <div class="code-wrap">
+          <button class="copy">Copy</button>
+<pre><code>// Command: /whoami
+ctx.reply('```\n' + JSON.stringify(ctx.update, null, 2) + '\n```', { parse_mode:'MarkdownV2' });</code></pre>
+        </div>
+      </div>
     </div>
 
+    <!-- ============== FOOTER NOTES ============== -->
+    <div class="group">
+      <h2>ℹ️ Notes</h2>
+      <div class="tips">
+        <div class="grid">
+          <div>• Some actions require your bot to be <b>admin</b> (pin, delete, ban) in groups.</div>
+          <div>• For <b>Inline Mode</b>, enable via <b>@BotFather → /setinline</b>.</div>
+          <div>• For <b>Payments</b>, configure a payment provider token in <b>@BotFather</b>.</div>
+          <div>• When deploying with <b>webhooks</b>, do not call <code>bot.launch()</code> and set a fixed HTTPS URL.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      for (const btn of document.querySelectorAll('.copy')) {
+        btn.addEventListener('click', (ev) => {
+          const pre = ev.target.nextElementSibling; const code = pre.querySelector('code').innerText;
+          navigator.clipboard.writeText(code).then(() => {
+            const t = ev.target; const old = t.textContent; t.textContent = 'Copied!'; t.classList.add('copied');
+            setTimeout(()=>{ t.textContent = old; t.classList.remove('copied'); }, 1600);
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
